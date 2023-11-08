@@ -25,7 +25,13 @@ const App = () => {
                 <CustomTypography variant="h2" align="center">
                     Memories
                 </CustomTypography>
-                <img src={memories} alt="memories" height="60" />
+                <img
+                    src={memories}
+                    alt="memories"
+                    height="60"
+                    width="80"
+                    style={{ borderRadius: "50%", marginLeft: "1rem" }}
+                />
             </CustomAppBar>
             <Grow in>
                 <Container>

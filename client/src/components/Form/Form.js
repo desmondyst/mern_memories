@@ -4,6 +4,7 @@ import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { CustomTextField, CustomButton } from "./styles";
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({
@@ -50,13 +51,13 @@ const Form = ({ currentId, setCurrentId }) => {
     };
 
     return (
-        <Paper>
+        <Paper sx={{ padding: "1rem", borderRadius: "1rem" }}>
             <form autoComplete="off" noValidate onSubmit={handleSubmit}>
                 <Typography variant="h6">
                     {" "}
                     {currentId ? "Editing" : "Creating"} a Memory{" "}
                 </Typography>
-                <TextField
+                <CustomTextField
                     name="creator"
                     variant="outlined"
                     label="Creator"
@@ -67,7 +68,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 />
 
-                <TextField
+                <CustomTextField
                     name="title"
                     variant="outlined"
                     label="Title"
@@ -78,7 +79,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 />
 
-                <TextField
+                <CustomTextField
                     name="message"
                     variant="outlined"
                     label="Message"
@@ -89,7 +90,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 />
 
-                <TextField
+                <CustomTextField
                     name="tags"
                     variant="outlined"
                     label="Tags"
@@ -103,7 +104,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 />
 
-                <div>
+                <div style={{ margin: "1rem 0" }}>
                     <FileBase
                         type="file"
                         multiple={false}
@@ -113,7 +114,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     />
                 </div>
 
-                <Button
+                <CustomButton
                     variant="contained"
                     color="primary"
                     size="large"
@@ -121,9 +122,9 @@ const Form = ({ currentId, setCurrentId }) => {
                     fullWidth
                 >
                     Submit
-                </Button>
+                </CustomButton>
 
-                <Button
+                <CustomButton
                     variant="contained"
                     color="secondary"
                     size="small"
@@ -131,7 +132,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     onClick={clear}
                 >
                     Clear
-                </Button>
+                </CustomButton>
             </form>
         </Paper>
     );
