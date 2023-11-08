@@ -24,7 +24,7 @@ const Post = ({ post, setCurrentId }) => {
 
             <CustomContainer
                 className="details-container"
-                sx={{ color: "white", zIndex: 2 }}
+                sx={{ color: "white", zIndex: 2, height: "100%" }}
             >
                 <div className="creator-time-container">
                     <div
@@ -71,7 +71,11 @@ const Post = ({ post, setCurrentId }) => {
                 </CardContent>
 
                 <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "auto",
+                    }}
                 >
                     <CardActions sx={{ px: 0 }}>
                         <Button

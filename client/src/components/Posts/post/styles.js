@@ -25,4 +25,6 @@ export const CustomCardMedia = styled(CardMedia)(() => ({
 
 export const CustomContainer = styled(Container)(() => ({
     paddingTop: "1rem",
+    display: "flex",
+    flexDirection: "column",
 }));
