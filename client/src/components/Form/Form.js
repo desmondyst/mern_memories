@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { createPost, updatePost } from "../../actions/posts";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
-const clear = () => {};
-
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({
         creator: "",
         title: "",
@@ -15,18 +14,48 @@ const Form = () => {
         selectedFile: "",
     });
 
+    const post = useSelector((state) =>
+        currentId ? state.posts.find((p) => p._id == currentId) : null
+    );
+
+    useEffect(() => {
+        if (post) {
+            setPostData(post);
+        }
+    }, [post]);
+
     const dispatch = useDispatch();
+
+    const clear = () => {
+        setCurrentId(null);
+        setPostData({
+            creator: "",
+            title: "",
+            message: "",
+            tags: "",
+            selectedFile: "",
+        });
+    };
+
     const handleSubmit = (e) => {
         // prevent refresh
         e.preventDefault();
 
-        dispatch(createPost(postData));
+        if (currentId) {
+            dispatch(updatePost(currentId, postData));
+        } else {
+            dispatch(createPost(postData));
+        }
+        clear();
     };
 
     return (
         <Paper>
             <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-                <Typography variant="h6"> Creating a Memory </Typography>
+                <Typography variant="h6">
+                    {" "}
+                    {currentId ? "Editing" : "Creating"} a Memory{" "}
+                </Typography>
                 <TextField
                     name="creator"
                     variant="outlined"
@@ -67,7 +96,10 @@ const Form = () => {
                     fullWidth
                     value={postData.tags}
                     onChange={(e) =>
-                        setPostData({ ...postData, tags: e.target.value })
+                        setPostData({
+                            ...postData,
+                            tags: e.target.value.split(","),
+                        })
                     }
                 />
 
@@ -95,7 +127,6 @@ const Form = () => {
                     variant="contained"
                     color="secondary"
                     size="small"
-                    type="submit"
                     fullWidth
                     onClick={clear}
                 >

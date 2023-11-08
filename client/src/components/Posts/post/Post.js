@@ -13,8 +13,11 @@ import { CustomCard, CustomCardMedia, CustomContainer } from "./styles";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUp";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useDispatch } from "react-redux";
 
-const Post = ({ post }) => {
+import { deletePost, likePost } from "../../../actions/posts";
+const Post = ({ post, setCurrentId }) => {
+    const dispatch = useDispatch();
     return (
         <CustomCard>
             <CustomCardMedia image={post.selectedFile} title={post.title} />
@@ -40,7 +43,9 @@ const Post = ({ post }) => {
                                     color: "red",
                                 },
                             }}
-                            onClick={() => {}}
+                            onClick={() => {
+                                setCurrentId(post._id);
+                            }}
                         />
                     </div>
                     <Typography variant="body2">
@@ -55,21 +60,36 @@ const Post = ({ post }) => {
                         </Typography>
                     </div>
 
-                    <Typography variant="h5">{post.message}</Typography>
+                    <Typography variant="h5">{post.title}</Typography>
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                    >
+                        {post.message}
+                    </Typography>
                 </CardContent>
 
                 <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
                     <CardActions sx={{ px: 0 }}>
-                        <Button onClick={() => {}}>
+                        <Button
+                            onClick={() => {
+                                dispatch(likePost(post._id));
+                            }}
+                        >
                             <ThumbUpAltIcon fontSize="small" />
                             Like {post.likeCount}
                         </Button>
                     </CardActions>
 
                     <CardActions sx={{ px: 0 }}>
-                        <Button onClick={() => {}}>
+                        <Button
+                            onClick={() => {
+                                dispatch(deletePost(post._id));
+                            }}
+                        >
                             <DeleteIcon fontSize="small" />
                             Delete{" "}
                         </Button>

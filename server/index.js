@@ -2,10 +2,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import postRoutes from "./routes/posts.js";
 
 const app = express();
+dotenv.config();
 
 // This line adds middleware to the Express application (app), specifically the body-parser middleware.
 // body-parser is a middleware that helps in parsing the request body of incoming HTTP requests.
@@ -29,16 +31,13 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 
-const CONNECTION_URL =
-    "mongodb+srv://dyst:Abcd1234.@mernmemoriescluster.cthgtzp.mongodb.net/?retryWrites=true&w=majority";
-
 const PORT = process.env.PORT || 5000;
 
 // This option is set to true to enable the new URL parser. In older versions of MongoDB, the connection URL had a different format, and setting this option to true ensures that Mongoose uses the updated URL parser to parse the connection string correctly. This option is required for more recent versions of MongoDB.
 // useUnifiedTopology: true,
 // This option is set to true to enable the unified topology. Unified topology is a new way of managing connections to MongoDB servers. It's recommended to set this option to true for modern MongoDB versions.
 mongoose
-    .connect(CONNECTION_URL, {})
+    .connect(process.env.CONNECTION_URL, {})
     .then(() =>
         app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
     )
