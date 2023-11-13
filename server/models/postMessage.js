@@ -8,8 +8,9 @@ const postSchema = mongoose.Schema({
     tags: [String],
     selectedFile: String,
     likeCount: {
-        type: Number,
-        default: 0,
+        // array of strings, which are the ids
+        type: [String],
+        default: [],
     },
     createdAt: {
         type: Date,

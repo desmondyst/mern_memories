@@ -26,7 +26,7 @@ const initialFormState = {
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [isSignUp, setIsSignUp] = useState(true);
+    const [isSignUp, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState(initialFormState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,10 +36,10 @@ const Auth = () => {
 
         if (isSignUp) {
             //sign the user up
-            dispatch(signUp(formData));
+            dispatch(signUp(formData, navigate));
         } else {
             // log the user in
-            dispatch(signIn(formData));
+            dispatch(signIn(formData, navigate));
         }
     };
 
