@@ -14,9 +14,10 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { signIn, signUp } from "../../actions/auth";
 
 const initialFormState = {
-    firstName: "ddd",
+    firstName: "",
     lastName: "",
     email: "",
     password: "",
@@ -30,9 +31,21 @@ const Auth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleChange = () => {};
+        if (isSignUp) {
+            //sign the user up
+            dispatch(signUp(formData));
+        } else {
+            // log the user in
+            dispatch(signIn(formData));
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -91,7 +104,6 @@ const Auth = () => {
                                     name="firstName"
                                     label="First Name"
                                     handleChange={handleChange}
-                                    value={"sd"}
                                     autofocus
                                     half
                                 />

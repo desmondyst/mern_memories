@@ -13,6 +13,7 @@ const Input = ({
     type,
     handleChange,
     handleShowPassword,
+    value,
 }) => {
     return (
         <Grid item xs={12} sm={half ? 6 : 12}>
@@ -24,6 +25,7 @@ const Input = ({
                 label={label}
                 autoFocus={autoFocus}
                 type={type}
+                value={value}
                 fullWidth
                 // button at the side of input for show password
                 InputProps={
