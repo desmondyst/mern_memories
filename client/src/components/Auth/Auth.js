@@ -56,10 +56,13 @@ const Auth = () => {
     };
 
     const createOrGetUser = (response) => {
+        // the credential itself is the JWT token is OAUTH2!!!!
         const result = jwtDecode(response.credential);
 
+        const token = response.credential;
+
         try {
-            dispatch({ type: "AUTH", data: { result } });
+            dispatch({ type: "AUTH", data: { result, token } });
             // redirect back to home
 
             navigate("/");

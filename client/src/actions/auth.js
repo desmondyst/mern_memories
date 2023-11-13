@@ -5,16 +5,6 @@ import { AUTH } from "../constants/actionTypes.js";
 
 // Action Creators (function that return actions)
 
-// export const getPosts = () => async (dispatch) => {
-//     try {
-//         const { data } = await api.fetchPosts();
-//         const action = { type: FETCH_ALL, payload: data };
-//         dispatch(action);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-
 export const signIn = (formData, navigate) => async (dispatch) => {
     try {
         // sign the user in

@@ -40,6 +40,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
     const handleSubmit = (e) => {
         // prevent refresh
+
         e.preventDefault();
 
         if (currentId) {

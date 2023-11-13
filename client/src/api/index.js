@@ -9,9 +9,10 @@ const API = axios.create({ baseURL: "https://mern-memories-api.onrender.com" });
 
 // interceptors before calling the APIS becuase we need send our user token to the backend so backend can verify (in the middleware in backend)
 API.interceptors.request.use((req) => {
-    if (localStorage.getItem("Profile")) {
+    console.log(localStorage.getItem("profile"));
+    if (localStorage.getItem("profile")) {
         req.headers.Authorization = `Bearer ${
-            JSON.parse(localStorage.getItem("Profile")).token
+            JSON.parse(localStorage.getItem("profile")).token
         }`;
     }
 
