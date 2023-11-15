@@ -91,17 +91,19 @@ const Post = ({ post, setCurrentId }) => {
                     </Typography>
                 </div>
 
-                <CardContent sx={{ px: 0, mt: "7rem", color: "black" }}>
+                <CardContent sx={{ px: 0, mt: "7rem" }}>
                     <div>
-                        <Typography variant="body2">
+                        <Typography variant="body2" color="textSecondary">
                             {post.tags.map((tag) => `#${tag} `)}
                         </Typography>
                     </div>
 
-                    <Typography variant="h5">{post.title}</Typography>
+                    <Typography variant="h5" color="text.primary">
+                        {post.title}
+                    </Typography>
                     <Typography
                         variant="body2"
-                        color="textSecondary"
+                        color="text.primary"
                         component="p"
                     >
                         {post.message}

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // creating an axios instance
-// const API = axios.create({ baseURL: "http://localhost:5000" });
-const API = axios.create({ baseURL: "https://mern-memories-api.onrender.com" });
+const API = axios.create({ baseURL: "http://localhost:5000" });
+// const API = axios.create({ baseURL: "https://mern-memories-api.onrender.com" });
 
 // const url = "http://localhost:5000/posts";
 // const url = "https://mern-memories-api.onrender.com/posts";
