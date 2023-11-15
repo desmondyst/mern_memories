@@ -56,7 +56,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
     if (!user?.result?.name) {
         return (
-            <Paper sx={{ padding: "1rem", borderRadius: "1rem" }}>
+            <Paper sx={{ padding: "1rem", borderRadius: "1rem" }} elevation={6}>
                 <Typography variant="h6">
                     {" "}
                     Please Sign in to create your own memories or like other's
@@ -67,7 +67,7 @@ const Form = ({ currentId, setCurrentId }) => {
     }
 
     return (
-        <Paper sx={{ padding: "1rem", borderRadius: "1rem" }}>
+        <Paper sx={{ padding: "1rem", borderRadius: "1rem" }} elevation={6}>
             <form autoComplete="off" onSubmit={handleSubmit}>
                 <Typography variant="h6">
                     {" "}

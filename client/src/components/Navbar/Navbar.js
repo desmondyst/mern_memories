@@ -35,44 +35,43 @@ const Navbar = () => {
 
     return (
         <>
-            <CustomAppBar position="static" color="inherit">
-                <div
+            <CustomAppBar
+                position="static"
+                color="inherit"
+                sx={{ paddingY: "0.3rem" }}
+            >
+                <Container
                     className="header"
-                    style={{
+                    sx={{
                         display: "flex",
-                        alignItems: "center",
 
-                        width: "70%",
-                        justifyContent: "flex-end",
-                        // marginRight: "2.5rem",
+                        alignItems: "center",
+                        marginLeft: { xs: "0.5rem", sm: "2.5rem" },
                     }}
                 >
                     <CustomTypography
                         variant="h2"
+                        fontWeight={500}
                         align="center"
-                        sx={{ fontSize: { xs: "1rem", md: "3rem" } }}
+                        sx={{ fontSize: { xs: "1.3rem", md: "3rem" } }}
                     >
                         Memories
                     </CustomTypography>
-                    <img
+                    {/* <img
                         src={memories}
                         alt="memories"
                         height="60"
                         width="80"
                         style={{ borderRadius: "50%", marginLeft: "1rem" }}
-                    />
-                </div>
+                    /> */}
+                </Container>
 
-                <Toolbar
-                    sx={{
-                        width: "30%",
-                    }}
-                >
+                <div>
                     {user ? (
-                        <div
-                            style={{
+                        <Container
+                            sx={{
                                 display: "flex",
-                                gap: "1rem",
+                                gap: { xs: "0.5rem", sm: "2rem" },
                                 alignItems: "center",
                             }}
                         >
@@ -85,26 +84,35 @@ const Navbar = () => {
                             <Typography
                                 variant="h6"
                                 sx={{ fontSize: { xs: "1rem" } }}
+                                whiteSpace="nowrap"
                             >
                                 {user.result.name}
                             </Typography>
                             <Button
+                                sx={{
+                                    fontSize: { xs: "1rem" },
+                                    whiteSpace: "nowrap",
+                                }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => logout()}
                             >
-                                Log out
+                                <Typography fontSize={"0.8rem"}>
+                                    Log out
+                                </Typography>
+                                {/* Log out */}
                             </Button>
-                        </div>
+                        </Container>
                     ) : (
                         <Button
                             variant="contained"
                             onClick={() => navigate("/auth")}
+                            sx={{ whiteSpace: "nowrap", marginRight: "1.5rem" }}
                         >
                             Sign in
                         </Button>
                     )}
-                </Toolbar>
+                </div>
             </CustomAppBar>
         </>
     );

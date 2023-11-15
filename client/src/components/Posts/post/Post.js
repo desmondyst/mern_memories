@@ -53,7 +53,7 @@ const Post = ({ post, setCurrentId }) => {
     };
 
     return (
-        <CustomCard>
+        <CustomCard elevation={6}>
             <CustomCardMedia image={post.selectedFile} title={post.title} />
 
             <CustomContainer

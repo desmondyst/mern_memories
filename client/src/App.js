@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Container } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 
 import { useDispatch } from "react-redux";
 import { getPosts } from "./actions/posts";
@@ -11,15 +11,28 @@ import Auth from "./components/Auth/Auth";
 
 const App = () => {
     return (
-        <Container maxWidth="lg">
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="auth" element={<Auth />} />
-                </Routes>
-            </Router>
-        </Container>
+        <>
+            {/* reset browser default styling */}
+            <CssBaseline />
+            <Container
+                maxWidth="xl"
+                sx={{
+                    padding: { xs: "0" },
+                    width: "100vw",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                }}
+            >
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="auth" element={<Auth />} />
+                    </Routes>
+                </Router>
+            </Container>
+        </>
     );
 };
 
