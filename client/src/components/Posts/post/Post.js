@@ -19,6 +19,39 @@ import { deletePost, likePost } from "../../../actions/posts";
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
 
+    const user = JSON.parse(localStorage.getItem("profile"));
+
+    // custom Like subcomponents
+    const Likes = () => {
+        if (post.likes.length > 0) {
+            return post.likes.find(
+                (like) => like === (user?.result?.googleId || user?.result?.id)
+            ) ? (
+                <>
+                    <ThumbUpAltIcon fontSize="small" /> &nbsp;
+                    {post.likes.length > 2
+                        ? `You and ${post.likes.length - 1} others`
+                        : `${post.likes.length} like ${
+                              post.likes.length > 1 ? "s" : ""
+                          }`}
+                </>
+            ) : (
+                <>
+                    <ThumbUpAltIcon fontSize="small" /> &nbsp;
+                    {post.likes.length}
+                    {post.likes.length === 1 ? "Like" : "Likes"}
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <ThumbUpAltIcon fontSize="small" />
+                    &nbsp; Like
+                </>
+            );
+        }
+    };
+
     return (
         <CustomCard>
             <CustomCardMedia image={post.selectedFile} title={post.title} />
@@ -36,18 +69,22 @@ const Post = ({ post, setCurrentId }) => {
                         }}
                     >
                         <Typography variant="h6">{post.name}</Typography>
-
-                        <MoreHorizIcon
-                            sx={{
-                                ":hover": {
-                                    cursor: "pointer",
-                                    color: "red",
-                                },
-                            }}
-                            onClick={() => {
-                                setCurrentId(post._id);
-                            }}
-                        />
+                        {user?.result?.sub === post?.creator ||
+                        user?.result?._id === post?.creator ? (
+                            <MoreHorizIcon
+                                sx={{
+                                    ":hover": {
+                                        cursor: "pointer",
+                                        color: "red",
+                                    },
+                                }}
+                                onClick={() => {
+                                    setCurrentId(post._id);
+                                }}
+                            />
+                        ) : (
+                            <></>
+                        )}
                     </div>
                     <Typography variant="body2">
                         {moment(post.createdAt).fromNow()}
@@ -83,21 +120,26 @@ const Post = ({ post, setCurrentId }) => {
                             onClick={() => {
                                 dispatch(likePost(post._id));
                             }}
+                            disabled={!user?.result}
                         >
-                            <ThumbUpAltIcon fontSize="small" />
-                            Like {post.likeCount}
+                            <Likes />
                         </Button>
                     </CardActions>
 
                     <CardActions sx={{ px: 0 }}>
-                        <Button
-                            onClick={() => {
-                                dispatch(deletePost(post._id));
-                            }}
-                        >
-                            <DeleteIcon fontSize="small" />
-                            Delete{" "}
-                        </Button>
+                        {user?.result?.sub === post?.creator ||
+                        user?.result?._id === post?.creator ? (
+                            <Button
+                                onClick={() => {
+                                    dispatch(deletePost(post._id));
+                                }}
+                            >
+                                <DeleteIcon fontSize="small" />
+                                Delete{" "}
+                            </Button>
+                        ) : (
+                            <></>
+                        )}
                     </CardActions>
                 </div>
             </CustomContainer>

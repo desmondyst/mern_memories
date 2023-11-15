@@ -85,6 +85,7 @@ export const likePost = async (req, res) => {
     const post = await PostMessage.findById(_id);
 
     // check if user already liked the post
+
     const index = post.likes.findIndex((id) => id === String(req.userId));
 
     if (index === -1) {
@@ -92,7 +93,8 @@ export const likePost = async (req, res) => {
         post.likes.push(req.userId);
     } else {
         // dislike a post
-        post.likes.filter((id) => id !== req.userId);
+
+        post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
 
     const updatedPost = await PostMessage.findByIdAndUpdate(

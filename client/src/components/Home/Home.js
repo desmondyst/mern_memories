@@ -6,15 +6,17 @@ import Form from "../Form/Form";
 
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch();
 
     const [currentId, setCurrentId] = useState(null);
+    const location = useLocation();
 
     useEffect(() => {
         dispatch(getPosts());
-    }, [currentId, dispatch]);
+    }, [currentId, dispatch, location]);
 
     return (
         <Grow in>

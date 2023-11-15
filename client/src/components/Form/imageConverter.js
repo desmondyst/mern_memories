@@ -26,6 +26,7 @@ const ImageConverter = ({ postData, setPostData }) => {
 
     return (
         <input
+            style={{ marginTop: "0.8rem" }}
             required
             type="file"
             label="Image"
