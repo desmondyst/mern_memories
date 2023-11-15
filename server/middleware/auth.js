@@ -12,8 +12,12 @@ import jwt, { decode } from "jsonwebtoken";
  */
 
 const auth = async (req, res, next) => {
-    console.log("middle ware called");
-    console.log(req.headers);
+    // ownself add one, if not authorized, return
+    if (req.headers.authorization == null) {
+        res.status(401).json({ message: "Not authorized" });
+        return;
+    }
+
     try {
         // this token will be populated by the interceptors in routes
         const token = req.headers.authorization.split(" ")[1];
