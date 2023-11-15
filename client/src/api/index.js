@@ -1,15 +1,14 @@
 import axios from "axios";
 
 // creating an axios instance
-// const API = axios.create({ baseURL: "http://localhost:5000" });
-const API = axios.create({ baseURL: "https://mern-memories-api.onrender.com" });
+const API = axios.create({ baseURL: "http://localhost:5000" });
+// const API = axios.create({ baseURL: "https://mern-memories-api.onrender.com" });
 
 // const url = "http://localhost:5000/posts";
 // const url = "https://mern-memories-api.onrender.com/posts";
 
 // interceptors before calling the APIS becuase we need send our user token to the backend so backend can verify (in the middleware in backend)
 API.interceptors.request.use((req) => {
-    console.log(localStorage.getItem("profile"));
     if (localStorage.getItem("profile")) {
         req.headers.Authorization = `Bearer ${
             JSON.parse(localStorage.getItem("profile")).token

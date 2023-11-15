@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { CustomTextField, CustomButton } from "./styles";
+import ImageConverter from "./imageConverter";
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({
-        creator: "",
         title: "",
         message: "",
         tags: "",
@@ -18,6 +18,8 @@ const Form = ({ currentId, setCurrentId }) => {
     const post = useSelector((state) =>
         currentId ? state.posts.find((p) => p._id == currentId) : null
     );
+
+    const user = JSON.parse(localStorage.getItem("profile"));
 
     useEffect(() => {
         if (post) {
@@ -30,7 +32,6 @@ const Form = ({ currentId, setCurrentId }) => {
     const clear = () => {
         setCurrentId(null);
         setPostData({
-            creator: "",
             title: "",
             message: "",
             tags: "",
@@ -44,32 +45,37 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault();
 
         if (currentId) {
-            dispatch(updatePost(currentId, postData));
+            dispatch(
+                updatePost(currentId, { ...postData, name: user?.result?.name })
+            );
         } else {
-            dispatch(createPost(postData));
+            dispatch(createPost({ ...postData, name: user?.result?.name }));
         }
         clear();
     };
 
+    if (!user?.result?.name) {
+        return (
+            <Paper sx={{ padding: "1rem", borderRadius: "1rem" }}>
+                <Typography variant="h6">
+                    {" "}
+                    Please Sign in to create your own memories or like other's
+                    memories
+                </Typography>
+            </Paper>
+        );
+    }
+
     return (
         <Paper sx={{ padding: "1rem", borderRadius: "1rem" }}>
-            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+            <form autoComplete="off" onSubmit={handleSubmit}>
                 <Typography variant="h6">
                     {" "}
                     {currentId ? "Editing" : "Creating"} a Memory{" "}
                 </Typography>
-                <CustomTextField
-                    name="creator"
-                    variant="outlined"
-                    label="Creator"
-                    fullWidth
-                    value={postData.creator}
-                    onChange={(e) =>
-                        setPostData({ ...postData, creator: e.target.value })
-                    }
-                />
 
                 <CustomTextField
+                    required
                     name="title"
                     variant="outlined"
                     label="Title"
@@ -81,6 +87,7 @@ const Form = ({ currentId, setCurrentId }) => {
                 />
 
                 <CustomTextField
+                    required
                     name="message"
                     variant="outlined"
                     label="Message"
@@ -92,6 +99,7 @@ const Form = ({ currentId, setCurrentId }) => {
                 />
 
                 <CustomTextField
+                    required
                     name="tags"
                     variant="outlined"
                     label="Tags"
@@ -105,7 +113,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 />
 
-                <div style={{ margin: "1rem 0" }}>
+                {/* <div style={{ margin: "1rem 0" }} required>
                     <FileBase
                         type="file"
                         multiple={false}
@@ -113,7 +121,9 @@ const Form = ({ currentId, setCurrentId }) => {
                             setPostData({ ...postData, selectedFile: base64 })
                         }
                     />
-                </div>
+                </div> */}
+
+                <ImageConverter postData={postData} setPostData={setPostData} />
 
                 <CustomButton
                     variant="contained"

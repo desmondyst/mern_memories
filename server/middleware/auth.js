@@ -37,7 +37,6 @@ const auth = async (req, res, next) => {
             req.userId = decodedData?.sub;
         }
 
-        console.log("called in middleware");
         next();
     } catch (error) {
         console.log(error);

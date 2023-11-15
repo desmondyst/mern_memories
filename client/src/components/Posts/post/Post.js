@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
+
     return (
         <CustomCard>
             <CustomCardMedia image={post.selectedFile} title={post.title} />
@@ -34,7 +35,7 @@ const Post = ({ post, setCurrentId }) => {
                             justifyContent: "space-between",
                         }}
                     >
-                        <Typography variant="h6">{post.creator}</Typography>
+                        <Typography variant="h6">{post.name}</Typography>
 
                         <MoreHorizIcon
                             sx={{
