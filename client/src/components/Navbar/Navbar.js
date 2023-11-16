@@ -78,6 +78,7 @@ const Navbar = () => {
                             <Avatar
                                 alt={user.result.name}
                                 src={user.result.picture}
+                                sx={{ display: { xs: "none", sm: "block" } }}
                             >
                                 {user.result.name.charAt(0)}
                             </Avatar>
