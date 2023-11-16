@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grow, Grid } from "@mui/material";
+import {
+    Container,
+    Grow,
+    Grid,
+    Chip,
+    Paper,
+    Box,
+    AppBar,
+    TextField,
+    ListItem,
+    Button,
+} from "@mui/material";
 
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../actions/posts";
-import { useLocation } from "react-router-dom";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
+import { useLocation, useSearchParams } from "react-router-dom";
+import Pagination from "../Posts/Pagination";
+
+import Search from "./Search";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -14,8 +28,21 @@ const Home = () => {
     const [currentId, setCurrentId] = useState(null);
     const location = useLocation();
 
+    let [searchParams] = useSearchParams();
+
+    let [category, setCategory] = useState(searchParams.get("page") || 1);
+
+    const searchQuery = searchParams.get("searchQuery");
+    const tagsQuery = searchParams.get("tags");
+
     useEffect(() => {
-        dispatch(getPosts());
+        if (!searchQuery && !tagsQuery) {
+            dispatch(getPosts());
+        } else {
+            dispatch(
+                getPostsBySearch({ search: searchQuery, tags: tagsQuery })
+            );
+        }
     }, [currentId, dispatch, location]);
 
     return (
@@ -37,11 +64,16 @@ const Home = () => {
                             setCurrentId={setCurrentId}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={2} lg={3}>
-                        <Form
-                            currentId={currentId}
-                            setCurrentId={setCurrentId}
-                        />
+                        <Box>
+                            <Search />
+                            <Form
+                                currentId={currentId}
+                                setCurrentId={setCurrentId}
+                            />
+                            {/* <Pagination mt="2rem" /> */}
+                        </Box>
                     </Grid>
                 </Grid>
             </Container>

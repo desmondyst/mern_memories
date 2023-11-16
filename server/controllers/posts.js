@@ -12,6 +12,30 @@ export const getPosts = async (req, res) => {
     }
 };
 
+export const getPostsBySearch = async (req, res) => {
+    // req.query is to get the param in express.js
+    const { searchQuery, tags } = req.query;
+
+    try {
+        // coonvert title into regular expression for easier db query
+        // i stands for ignore case
+        const title = new RegExp(searchQuery, "i");
+
+        /**
+        { title }: This condition checks if the "title" field in the documents matches the provided value. It's a shorthand for { title: title }.
+        { tags: { $in: tags.split(",") } }: This condition checks if the "tags" field in the documents contains at least one element that matches any of the tags provided in the tags array (after splitting the string by commas).
+         */
+
+        const postMessages = await PostMessage.find({
+            $or: [{ title }, { tags: { $in: tags.split(",") } }],
+        });
+
+        res.json(postMessages);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
 export const createPost = async (req, res) => {
     const post = req.body;
 

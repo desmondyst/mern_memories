@@ -17,8 +17,9 @@ const store = configureStore({ reducer: reducers });
 
 const domNode = document.getElementById("root");
 const root = createRoot(domNode);
+
 root.render(
-    <GoogleOAuthProvider clientId={env.GOOGLE_API_TOKEN}>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}>
         <Provider store={store}>
             <App />
         </Provider>
