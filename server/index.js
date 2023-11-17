@@ -27,9 +27,10 @@ dotenv.config();
 // CORS stands for Cross-Origin Resource Sharing, and it is a security feature implemented in web browsers. CORS restricts web pages from making requests to a different domain than the one that served the web page. The cors middleware helps configure the server to allow or restrict cross-origin HTTP requests.
 // By using app.use(cors()), you are enabling Cross-Origin Resource Sharing and allowing your server to respond to requests from different domains. This is often required when your server serves data to a web application running on a different domain.
 
+app.use(cors());
+
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
 app.get("/", welcome);
 app.use("/posts", postRoutes);
