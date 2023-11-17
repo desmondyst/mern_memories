@@ -8,6 +8,7 @@ export const getPosts = async (req, res) => {
 
         res.status(200).json(postMessages);
     } catch (error) {
+        console.log(error);
         res.status(404).json({ message: error.message });
     }
 };
@@ -32,6 +33,7 @@ export const getPostsBySearch = async (req, res) => {
 
         res.json(postMessages);
     } catch (error) {
+        console.log(error);
         res.status(404).json({ message: error.message });
     }
 };
