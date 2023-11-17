@@ -83,13 +83,17 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).send("No post with that id");
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).send("No post with that id");
+        }
+
+        await PostMessage.findByIdAndDelete(id);
+
+        res.json({ message: "Post deleted successfully" });
+    } catch (error) {
+        console.log(error);
     }
-
-    await PostMessage.findByIdAndDelete(id);
-
-    res.json({ message: "Post deleted successfully" });
 };
 
 export const likePost = async (req, res) => {
@@ -102,31 +106,35 @@ export const likePost = async (req, res) => {
         return res.json({ message: "Unauthenticated" });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).send("No post with that id");
+    try {
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            return res.status(404).send("No post with that id");
+        }
+
+        const post = await PostMessage.findById(_id);
+
+        // check if user already liked the post
+
+        const index = post.likes.findIndex((id) => id === String(req.userId));
+
+        if (index === -1) {
+            // like the post
+            post.likes.push(req.userId);
+        } else {
+            // dislike a post
+
+            post.likes = post.likes.filter((id) => id !== String(req.userId));
+        }
+
+        const updatedPost = await PostMessage.findByIdAndUpdate(
+            _id,
+            // post that contain updated like
+            post,
+            { new: true }
+        );
+
+        res.json(updatedPost);
+    } catch (error) {
+        console.log(error);
     }
-
-    const post = await PostMessage.findById(_id);
-
-    // check if user already liked the post
-
-    const index = post.likes.findIndex((id) => id === String(req.userId));
-
-    if (index === -1) {
-        // like the post
-        post.likes.push(req.userId);
-    } else {
-        // dislike a post
-
-        post.likes = post.likes.filter((id) => id !== String(req.userId));
-    }
-
-    const updatedPost = await PostMessage.findByIdAndUpdate(
-        _id,
-        // post that contain updated like
-        post,
-        { new: true }
-    );
-
-    res.json(updatedPost);
 };
