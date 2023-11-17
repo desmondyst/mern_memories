@@ -10,9 +10,11 @@ import {
 
 // Action Creators (function that return actions)
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts();
+        // this data is an object of {data: Array(2), numberOfPages: 1}
+
+        const { data } = await api.fetchPosts(page);
         const action = { type: FETCH_ALL, payload: data };
         dispatch(action);
     } catch (error) {
@@ -23,7 +25,6 @@ export const getPosts = () => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         const { data } = await api.fetchPostsBySearch(searchQuery);
-        console.log(data);
 
         const action = { type: FETCH_BY_SEARCH, payload: data };
         dispatch(action);

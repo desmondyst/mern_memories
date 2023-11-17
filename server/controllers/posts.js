@@ -2,11 +2,31 @@
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
-export const getPosts = async (req, res) => {
-    try {
-        const postMessages = await PostMessage.find();
+const PAGELIMIT = 8;
 
-        res.status(200).json(postMessages);
+export const getPosts = async (req, res) => {
+    const { page } = req.query;
+
+    console.log(page);
+    // page is string when in url
+    const startIndex = (Number(page) - 1) * PAGELIMIT;
+    console.log(startIndex);
+
+    try {
+        // https://www.mongodb.com/docs/manual/reference/method/db.collection.countDocuments/#db-collection-countdocuments
+        const numberOfPages = await PostMessage.countDocuments({});
+        const posts = await PostMessage.find()
+            // The limit() method limits the number of documents in the result set.
+            //limit() corresponds to the LIMIT statement in SQL
+            .sort({ _id: -1 })
+            // The skip() method controls the starting point of the results set. The following operation skips the first 5 documents in the bios collection and returns all remaining documents:
+            .limit(PAGELIMIT)
+            .skip(startIndex);
+
+        res.status(200).json({
+            data: posts,
+            numberOfPages: Math.ceil(numberOfPages / PAGELIMIT),
+        });
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: error });

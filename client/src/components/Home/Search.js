@@ -71,6 +71,7 @@ const Search = () => {
                 }}
             />
             <MuiChipsInput
+                hideClearAll
                 fullWidth
                 value={tags}
                 onAddChip={handleAddChip}

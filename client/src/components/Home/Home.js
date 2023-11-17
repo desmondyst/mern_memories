@@ -30,20 +30,20 @@ const Home = () => {
 
     let [searchParams] = useSearchParams();
 
-    let [category, setCategory] = useState(searchParams.get("page") || 1);
+    const page = searchParams.get("page") || 1;
 
     const searchQuery = searchParams.get("searchQuery");
     const tagsQuery = searchParams.get("tags");
 
     useEffect(() => {
         if (!searchQuery && !tagsQuery) {
-            dispatch(getPosts());
+            dispatch(getPosts(page));
         } else {
             dispatch(
                 getPostsBySearch({ search: searchQuery, tags: tagsQuery })
             );
         }
-    }, [currentId, dispatch, location]);
+    }, [currentId, dispatch, location, page]);
 
     return (
         <Grow in>
@@ -72,7 +72,9 @@ const Home = () => {
                                 currentId={currentId}
                                 setCurrentId={setCurrentId}
                             />
-                            {/* <Pagination mt="2rem" /> */}
+                            {!searchQuery && !tagsQuery && (
+                                <Pagination currentPage={page} />
+                            )}
                         </Box>
                     </Grid>
                 </Grid>

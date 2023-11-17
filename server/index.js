@@ -42,6 +42,8 @@ const PORT = process.env.PORT || 5000;
 // This option is set to true to enable the new URL parser. In older versions of MongoDB, the connection URL had a different format, and setting this option to true ensures that Mongoose uses the updated URL parser to parse the connection string correctly. This option is required for more recent versions of MongoDB.
 // useUnifiedTopology: true,
 // This option is set to true to enable the unified topology. Unified topology is a new way of managing connections to MongoDB servers. It's recommended to set this option to true for modern MongoDB versions.
+
+console.log(process.env.CONNECTION_URL);
 mongoose
     .connect(process.env.CONNECTION_URL, {})
     .then(() =>

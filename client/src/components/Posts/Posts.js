@@ -4,15 +4,14 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Grid, CircularProgress, Typography, Container } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 const Posts = ({ setCurrentId }) => {
-    const posts = useSelector((state) => state.posts);
+    // the posts in state.posts refer to posts REDUCER
+    const { posts } = useSelector((state) => state.posts);
 
     let [searchParams] = useSearchParams();
     const searchQuery = searchParams.get("searchQuery");
     const tagsQuery = searchParams.get("tags");
 
-    console.log(posts);
-
-    return !posts.length ? (
+    return !posts?.length ? (
         <>
             {searchQuery || tagsQuery ? (
                 <Container>
