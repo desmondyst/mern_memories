@@ -114,7 +114,9 @@ const Navbar = () => {
                     ) : location.pathname !== "/auth" ? (
                         <Button
                             variant="contained"
-                            onClick={() => navigate("/auth")}
+                            onClick={() => {
+                                navigate("/auth");
+                            }}
                             sx={{ whiteSpace: "nowrap", marginRight: "1.5rem" }}
                         >
                             Sign in

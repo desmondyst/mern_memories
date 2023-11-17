@@ -8,7 +8,7 @@ import { CustomTextField, CustomButton } from "./styles";
 import ImageConverter from "./imageConverter";
 
 const Form = ({ currentId, setCurrentId }) => {
-    const [postData, setPostData] = useState({
+    let [postData, setPostData] = useState({
         title: "",
         message: "",
         tags: "",
@@ -43,6 +43,11 @@ const Form = ({ currentId, setCurrentId }) => {
         // prevent refresh
 
         e.preventDefault();
+
+        postData = {
+            ...postData,
+            tags: postData.tags.map((tag) => tag.toLowerCase()),
+        };
 
         if (currentId) {
             dispatch(

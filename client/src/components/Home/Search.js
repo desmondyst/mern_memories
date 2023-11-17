@@ -33,6 +33,8 @@ const Search = () => {
     const searchPosts = () => {
         // search posts if we have a search term that is not ""
 
+        const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+
         if (search.trim() || tags.length > 0) {
             //dispatch -> fetch search posts
             // dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
@@ -43,9 +45,9 @@ const Search = () => {
 
             //nah, dont do backend call, just push to route
             navigate(
-                `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(
-                    ","
-                )} `
+                `/posts/search?searchQuery=${
+                    search || "none"
+                }&tags=${lowerCaseTags.join(",")} `
             );
         } else {
             navigate("/posts");
