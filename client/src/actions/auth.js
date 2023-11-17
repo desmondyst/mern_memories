@@ -31,10 +31,13 @@ export const signUp = (formData, navigate) => async (dispatch) => {
         const action = { type: AUTH, data };
         dispatch(action);
 
+        toast.success("Sign up successfully");
+
         // redirect back to home
 
         navigate("/");
     } catch (error) {
+        toast.error("Invalid Input");
         console.log(error);
     }
 };

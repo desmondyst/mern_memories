@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import * as api from "../api";
 import {
     FETCH_ALL,
@@ -37,7 +38,9 @@ export const createPost = (post) => async (dispatch) => {
         const { data } = await api.createPost(post);
         const action = { type: CREATE, payload: data };
         dispatch(action);
+        toast.success("Post created successfully");
     } catch (error) {
+        toast.error("Error creating post");
         console.log(error);
     }
 };
@@ -47,7 +50,9 @@ export const updatePost = (id, post) => async (dispatch) => {
         const { data } = await api.updatePost(id, post);
         const action = { type: UPDATE, payload: data };
         dispatch(action);
+        toast.success("Post updated successfully");
     } catch (error) {
+        toast.error("Error updating post");
         console.log(error);
     }
 };
@@ -57,8 +62,10 @@ export const deletePost = (id) => async (dispatch) => {
         await api.deletePost(id);
         const action = { type: DELETE, payload: id };
         dispatch(action);
+        toast.success("Post deleted successfully");
     } catch (error) {
         console.log(error);
+        toast.error("Error deleting post");
     }
 };
 
