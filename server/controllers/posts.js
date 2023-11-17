@@ -9,7 +9,7 @@ export const getPosts = async (req, res) => {
         res.status(200).json(postMessages);
     } catch (error) {
         console.log(error);
-        res.status(404).json({ message: error.message });
+        res.status(404).json({ message: error });
     }
 };
 
@@ -34,7 +34,7 @@ export const getPostsBySearch = async (req, res) => {
         res.json(postMessages);
     } catch (error) {
         console.log(error);
-        res.status(404).json({ message: error.message });
+        res.status(404).json({ message: error });
     }
 };
 
@@ -51,7 +51,8 @@ export const createPost = async (req, res) => {
 
         res.status(201).json(newPost);
     } catch (error) {
-        res.status(409).json({ message: error.message });
+        console.log(error);
+        res.status(409).json({ message: error });
     }
 };
 

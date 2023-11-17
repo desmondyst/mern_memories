@@ -10,6 +10,8 @@ const Posts = ({ setCurrentId }) => {
     const searchQuery = searchParams.get("searchQuery");
     const tagsQuery = searchParams.get("tags");
 
+    console.log(posts);
+
     return !posts.length ? (
         <>
             {searchQuery || tagsQuery ? (
