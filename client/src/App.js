@@ -19,6 +19,9 @@ import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import { CustomAppContainer } from "./styles";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
@@ -39,6 +42,7 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 {/* reset browser default styling */}
                 <CssBaseline />
+                <ToastContainer />
                 <CustomAppContainer maxWidth="xl">
                     <Router>
                         <Navbar />

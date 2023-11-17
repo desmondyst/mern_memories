@@ -15,6 +15,7 @@ import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/auth";
+import { toast } from "react-toastify";
 
 const initialFormState = {
     firstName: "",
@@ -64,9 +65,10 @@ const Auth = () => {
         try {
             dispatch({ type: "AUTH", data: { result, token } });
             // redirect back to home
-
+            toast.success("Logged in successfully");
             navigate("/");
         } catch (error) {
+            toast.error("Logged in failed");
             console.log(error);
         }
     };

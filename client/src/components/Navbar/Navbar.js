@@ -5,18 +5,25 @@ import { Container, Avatar, Toolbar, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
     let navigate = useNavigate();
     const [user, setUser] = useState(null);
     const location = useLocation();
     const dispatch = useDispatch();
-    const logout = () => {
-        dispatch({ type: "LOGOUT" });
-        // redirect back to home
-        navigate("/");
 
-        setUser(null);
+    const logout = () => {
+        try {
+            dispatch({ type: "LOGOUT" });
+            toast.success("Logged out successfully");
+            // redirect back to home
+            navigate("/");
+
+            setUser(null);
+        } catch (error) {
+            toast.error("Logged out failed");
+        }
     };
 
     useEffect(() => {
@@ -104,7 +111,7 @@ const Navbar = () => {
                                 {/* Log out */}
                             </Button>
                         </Container>
-                    ) : (
+                    ) : location.pathname !== "/auth" ? (
                         <Button
                             variant="contained"
                             onClick={() => navigate("/auth")}
@@ -112,6 +119,8 @@ const Navbar = () => {
                         >
                             Sign in
                         </Button>
+                    ) : (
+                        <></>
                     )}
                 </div>
             </CustomAppBar>
