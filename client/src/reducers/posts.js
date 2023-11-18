@@ -4,10 +4,17 @@ import {
     UPDATE,
     DELETE,
     FETCH_BY_SEARCH,
+    START_LOADING,
+    END_LOADING,
 } from "../constants/actionTypes.js";
 
-export default (state = { posts: [] }, action) => {
+export default (state = { isLoading: true, posts: [] }, action) => {
     switch (action.type) {
+        case START_LOADING:
+            return { ...state, isLoading: true };
+
+        case END_LOADING:
+            return { ...state, isLoading: false };
         case DELETE:
             return {
                 ...state,
