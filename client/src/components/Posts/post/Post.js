@@ -28,14 +28,14 @@ const Post = ({ post, setCurrentId }) => {
     const Likes = () => {
         if (post.likes.length > 0) {
             return post.likes.find(
-                (like) => like === (user?.result?.googleId || user?.result?.id)
+                (like) => like === (user?.result?.sub || user?.result?._id)
             ) ? (
                 <>
                     <ThumbUpAltIcon fontSize="small" /> &nbsp;
                     {post.likes.length > 2
                         ? `You and ${post.likes.length - 1} others`
                         : `${post.likes.length} like ${
-                              post.likes.length > 1 ? "s" : ""
+                              post.likes.length > 1 ? "" : ""
                           }`}
                 </>
             ) : (
@@ -85,7 +85,9 @@ const Post = ({ post, setCurrentId }) => {
                                         color: "red",
                                     },
                                 }}
-                                onClick={() => {
+                                onClick={(e) => {
+                                    // prevent outer onclick from being called
+                                    e.stopPropagation();
                                     setCurrentId(post._id);
                                 }}
                             />

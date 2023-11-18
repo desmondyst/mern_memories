@@ -5,7 +5,6 @@ import PostMessage from "../models/postMessage.js";
 const PAGELIMIT = 8;
 
 export const getPosts = async (req, res) => {
-    console.log(req);
     const { page } = req.query;
 
     // page is string when in url
@@ -33,7 +32,6 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
-    console.log("called");
     const { id } = req.params;
 
     try {
@@ -48,6 +46,7 @@ export const getPost = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
     // req.query is to get the param in express.js
+
     const { searchQuery, tags } = req.query;
 
     try {

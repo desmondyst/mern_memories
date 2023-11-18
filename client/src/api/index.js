@@ -29,6 +29,7 @@ export const fetchPostsBySearch = (searchQuery) =>
             searchQuery.tags
         }`
     );
+
 export const createPost = (newPost) => API.post("/posts", newPost);
 
 export const deletePost = (id) => API.delete(`/posts/${id}`);
