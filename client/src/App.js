@@ -42,7 +42,7 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 {/* reset browser default styling */}
                 <CssBaseline />
-                <ToastContainer />
+                <ToastContainer draggable={false} />
                 <CustomAppContainer maxWidth="xl">
                     <Router>
                         <Navbar />

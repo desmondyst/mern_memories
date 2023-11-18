@@ -5,12 +5,11 @@ import PostMessage from "../models/postMessage.js";
 const PAGELIMIT = 8;
 
 export const getPosts = async (req, res) => {
+    console.log(req);
     const { page } = req.query;
 
-    console.log(page);
     // page is string when in url
     const startIndex = (Number(page) - 1) * PAGELIMIT;
-    console.log(startIndex);
 
     try {
         // https://www.mongodb.com/docs/manual/reference/method/db.collection.countDocuments/#db-collection-countdocuments
