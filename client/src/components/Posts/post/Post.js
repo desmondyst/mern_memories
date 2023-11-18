@@ -6,6 +6,7 @@ import {
     Button,
     Typography,
     Container,
+    ButtonBase,
 } from "@mui/material";
 
 import { CustomCard, CustomCardMedia, CustomContainer } from "./styles";
@@ -16,8 +17,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDispatch } from "react-redux";
 
 import { deletePost, likePost } from "../../../actions/posts";
+import { useNavigate } from "react-router-dom";
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -52,8 +55,12 @@ const Post = ({ post, setCurrentId }) => {
         }
     };
 
+    const openPost = () => {
+        navigate(`/posts/${post._id}`);
+    };
+
     return (
-        <CustomCard elevation={6}>
+        <CustomCard elevation={6} onClick={openPost}>
             <CustomCardMedia image={post.selectedFile} title={post.title} />
 
             <CustomContainer
@@ -119,7 +126,9 @@ const Post = ({ post, setCurrentId }) => {
                 >
                     <CardActions sx={{ px: 0 }}>
                         <Button
-                            onClick={() => {
+                            onClick={(e) => {
+                                // prevent outer onclick from being called
+                                e.stopPropagation();
                                 dispatch(likePost(post._id));
                             }}
                             disabled={!user?.result}
@@ -132,7 +141,8 @@ const Post = ({ post, setCurrentId }) => {
                         {user?.result?.sub === post?.creator ||
                         user?.result?._id === post?.creator ? (
                             <Button
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     dispatch(deletePost(post._id));
                                 }}
                             >

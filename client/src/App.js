@@ -17,6 +17,7 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
+import PostDetail from "./components/PostDetails/PostDetail";
 import { CustomAppContainer } from "./styles";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -58,7 +59,11 @@ const App = () => {
                                 path="/posts/search"
                                 element={<Home />}
                             />
-                            <Route exact path="/posts/:id" element={<Home />} />
+                            <Route
+                                exact
+                                path="/posts/:id"
+                                element={<PostDetail />}
+                            />
                             <Route
                                 exact
                                 path="auth"

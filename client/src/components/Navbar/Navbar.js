@@ -60,7 +60,11 @@ const Navbar = () => {
                         variant="h2"
                         fontWeight={500}
                         align="center"
-                        sx={{ fontSize: { xs: "1rem", md: "3rem" } }}
+                        sx={{
+                            fontSize: { xs: "1rem", md: "3rem" },
+                            ":hover": { cursor: "pointer" },
+                        }}
+                        onClick={() => navigate("/")}
                     >
                         Memories
                     </CustomTypography>

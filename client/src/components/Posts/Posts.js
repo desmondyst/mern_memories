@@ -8,8 +8,6 @@ const Posts = ({ setCurrentId }) => {
     const { posts, isLoading } = useSelector((state) => state.posts);
 
     let [searchParams] = useSearchParams();
-    const searchQuery = searchParams.get("searchQuery");
-    const tagsQuery = searchParams.get("tags");
 
     if (!posts?.length && !isLoading) {
         return (

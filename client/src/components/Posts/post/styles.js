@@ -1,12 +1,4 @@
-import {
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Button,
-    Typography,
-    Container,
-} from "@mui/material";
+import { Card, CardMedia, Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const CustomCard = styled(Card)(() => ({
@@ -15,6 +7,8 @@ export const CustomCard = styled(Card)(() => ({
     borderRadius: "1rem",
     height: "100%",
     position: "relative",
+
+    "&:hover": { opacity: "0.8", cursor: "pointer" },
 }));
 
 export const CustomCardMedia = styled(CardMedia)(() => ({
