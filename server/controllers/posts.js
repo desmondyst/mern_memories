@@ -33,10 +33,12 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
+    console.log("called");
     const { id } = req.params;
 
     try {
         const post = await PostMessage.findById(id);
+        console.log(post);
 
         res.status(200).json(post);
     } catch (error) {
