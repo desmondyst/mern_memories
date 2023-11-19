@@ -3,8 +3,6 @@ import React from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
 
-import env from "react-dotenv";
-
 import { configureStore } from "@reduxjs/toolkit";
 import "./index.css";
 
