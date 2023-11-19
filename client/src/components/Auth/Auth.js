@@ -13,7 +13,7 @@ import Input from "./Input";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../actions/auth";
 import { toast } from "react-toastify";
 
@@ -31,6 +31,7 @@ const Auth = () => {
     const [formData, setFormData] = useState(initialFormState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("profile"));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,7 +81,9 @@ const Auth = () => {
         console.log(error);
     };
 
-    // # TODO:if sign in, should not vbe aloowed here
+    if (user) {
+        return <Navigate to="/posts" />;
+    }
 
     return (
         <Container component="main" maxWidth="xs">

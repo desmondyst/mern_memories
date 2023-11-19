@@ -22,21 +22,32 @@ import { CustomAppContainer } from "./styles";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { INITIALISED_SYSTEM_MODE } from "./constants/actionTypes";
 
 const App = () => {
+    const dispatch = useDispatch();
+
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    // initialised system preferred mode
+    useEffect(() => {
+        dispatch({
+            type: INITIALISED_SYSTEM_MODE,
+            defaultMode: prefersDarkMode ? "dark" : "light",
+        });
+    }, []);
+
+    const { mode } = useSelector((state) => state.settings);
 
     const theme = React.useMemo(
         () =>
             createTheme({
                 palette: {
-                    mode: prefersDarkMode ? "dark" : "light",
+                    mode,
                 },
             }),
-        [prefersDarkMode]
+        [mode]
     );
-
-    const user = JSON.parse(localStorage.getItem("profile"));
 
     return (
         <>
@@ -64,13 +75,7 @@ const App = () => {
                                 path="/posts/:id"
                                 element={<PostDetail />}
                             />
-                            <Route
-                                exact
-                                path="auth"
-                                element={
-                                    !user ? <Auth /> : <Navigate to="/posts" />
-                                }
-                            />
+                            <Route exact path="auth" element={<Auth />} />
                         </Routes>
                     </Router>
                 </CustomAppContainer>

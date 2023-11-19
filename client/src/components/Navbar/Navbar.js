@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
+import LightModeToggle from "./LightModeToggle";
 
 const Navbar = () => {
     let navigate = useNavigate();
@@ -40,6 +41,10 @@ const Navbar = () => {
         setUser(JSON.parse(localStorage.getItem("profile")));
     }, [location]);
 
+    const navigateToAuth = () => {
+        navigate("/auth");
+    };
+
     return (
         <>
             <CustomAppBar
@@ -54,6 +59,7 @@ const Navbar = () => {
 
                         alignItems: "center",
                         marginLeft: { xs: "0.5rem", sm: "2.5rem" },
+                        paddingRight: "0",
                     }}
                 >
                     <CustomTypography
@@ -68,13 +74,7 @@ const Navbar = () => {
                     >
                         Memories
                     </CustomTypography>
-                    {/* <img
-                        src={memories}
-                        alt="memories"
-                        height="60"
-                        width="80"
-                        style={{ borderRadius: "50%", marginLeft: "1rem" }}
-                    /> */}
+                    <LightModeToggle />
                 </Container>
 
                 <div>
@@ -95,21 +95,22 @@ const Navbar = () => {
                             </Avatar>
                             <Typography
                                 variant="h6"
-                                sx={{ fontSize: { xs: "1rem" } }}
+                                sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
                                 whiteSpace="nowrap"
                             >
                                 {user.result.name}
                             </Typography>
                             <Button
-                                sx={{
-                                    fontSize: { xs: "1rem" },
-                                    whiteSpace: "nowrap",
-                                }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => logout()}
                             >
-                                <Typography fontSize={"0.8rem"}>
+                                <Typography
+                                    sx={{
+                                        whiteSpace: "nowrap",
+                                        fontSize: { xs: "0.7rem", md: "1rem" },
+                                    }}
+                                >
                                     Log out
                                 </Typography>
                                 {/* Log out */}
@@ -118,9 +119,7 @@ const Navbar = () => {
                     ) : location.pathname !== "/auth" ? (
                         <Button
                             variant="contained"
-                            onClick={() => {
-                                navigate("/auth");
-                            }}
+                            onClick={navigateToAuth}
                             sx={{ whiteSpace: "nowrap", marginRight: "1.5rem" }}
                         >
                             Sign in
