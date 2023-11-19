@@ -14,6 +14,7 @@ import moment from "moment";
 
 import { CustomImage, CustomPaper } from "./styles";
 import Recommendation from "./Recommendation";
+import CommentSection from "./CommentSection";
 
 const PostDetail = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -84,6 +85,7 @@ const PostDetail = () => {
                     <Grid item xs={12} md={4} maxHeight={"100%"}>
                         <CustomImage src={post.selectedFile} />
                     </Grid>
+
                     <Grid item sx={{ width: "100%" }}>
                         <Recommendation recommendedPost={recommendedPost} />
                     </Grid>
