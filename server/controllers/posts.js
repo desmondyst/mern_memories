@@ -5,6 +5,7 @@ import PostMessage from "../models/postMessage.js";
 const PAGELIMIT = 8;
 
 export const getPosts = async (req, res) => {
+    console.log("GET POST");
     const { page } = req.query;
 
     // page is string when in url
